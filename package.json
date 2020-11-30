@@ -4,9 +4,11 @@
   "description": "myways_test_by_chandan",
   "main": "index.js",
   "scripts": {
+    "devStart": "nodemon --exec babel-node index.js",
+    "build": "cd views && npm run build",
+    "install-client": "cd views && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
     "start": "babel-node index.js",
-    "server": "nodemon --exec babel-node index",
-    "client": "npm start --prefix views",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "chandan kumar",
