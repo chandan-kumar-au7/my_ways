@@ -1,4 +1,6 @@
 import bcrypt from "bcryptjs";
+// import { json } from "body-parser";
+import jwt from "jsonwebtoken";
 import { UserModel } from "../Models";
 import { SEND_EMAIL_WITH_OTP } from "../utils/generateEmail";
 
@@ -36,10 +38,13 @@ class UserAuthController {
       const OTP = generateOTP();
       user.otp = OTP;
 
-      await user.save();
+      const userData = await user.save();
+
+      console.log(userData._id);
 
       res.status(201).json({
         message: "User Registered Successfully",
+        userid: userData._id,
         otp_related_message:
           "OTP Sent to Your Email , Fill That For Go Further ",
       });
@@ -66,18 +71,23 @@ class UserAuthController {
 
   async signin(req, res, next) {
     try {
-      let token = req.cookies.auth;
+      const token = req.header("token");
 
       const user = await findByCredentials(req.body.email, req.body.password);
 
       if (user) {
         if (token) {
-          return res.json({ message: "Already Logged In" });
+          try {
+            const decoded = jwt.verify(token, "thisissecret");
+            req.username = decoded.username; //decoded.user because we have set user in payload
+            next();
+            return res.json({ message: "Already Logged In" });
+          } catch (err) {
+            res.status(401).json({ msg: "You Need To ReLogin..." });
+          }
         } else {
           const token = await user.genrateAuthToken();
 
-          res.cookie("auth", token, { maxage: "12h" });
-          res.cookie("logedInAs", user.type, { maxage: "12h" });
           res
             .status(200)
             .json({ message: "Student Logged In Successfully", token: token });
@@ -128,15 +138,22 @@ class UserAuthController {
   async otpvarify(req, res, next) {
     try {
       const OTP = req.body.otp;
-      const _id = req.user._id;
+      const _id = req.body._id;
+
       if (OTP) {
         const USER = await UserModel.findOne({ _id });
+        console.log("userid ", _id);
+        console.log("USERotp ", typeof JSON.stringify(USER.otp));
+        console.log("userOTP ", typeof OTP);
         if (!USER.email_varified) {
-          if (USER.otp == Number(OTP)) {
-            // console.log(USER);
+          console.log("IMP ", USER.otp, " ", OTP);
+          if (JSON.stringify(USER.otp) == OTP) {
             UserModel.findByIdAndUpdate(
-              req.user._id,
-              { email_varified: true, otp: "" },
+              _id,
+              {
+                email_varified: true,
+                otp: "",
+              },
               () => {
                 return res.status(200).json({
                   message: "Your Account Is Activated Now , Go Ahead ...",
@@ -155,7 +172,7 @@ class UserAuthController {
         return res.send("Enter OTP , Without OTP You Can't Continue");
       }
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send(error.message);
     }
   }
 }

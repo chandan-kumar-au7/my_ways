@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Dropdown from "../Components/dropdown";
+import jwt_decode from "jwt-decode";
 
 import "../Styles/NavBar.css";
 
@@ -10,13 +11,17 @@ import T_Logo from "../images/Tlogo.png";
 import { Link } from "react-router-dom";
 
 function NavBar() {
-  const [isLoggedIn] = useState(false);
+  const [isLoggedIn, setisLoggedIn] = useState(false);
   const [DisplayMenu, setDisplayMenu] = useState(false);
   const [DisplayDropdown, setDisplayDropdown] = useState(false);
+  let [, setState] = useState();
 
   const history = useHistory();
 
   const HandleLogOut = () => {
+    localStorage.removeItem("userDATA");
+    localStorage.removeItem("userID");
+    setisLoggedIn(false);
     history.push("/");
   };
 
@@ -39,6 +44,22 @@ function NavBar() {
 
     console.log("clicking ");
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("userDATA");
+    if (token) {
+      const decoded = jwt_decode(token);
+      // Check for expired token
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        setisLoggedIn(false);
+
+        history.push("/login");
+      }
+      setisLoggedIn(true);
+      setState({});
+    }
+  }, [history]);
 
   return (
     <>

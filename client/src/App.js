@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import Varify from "./Pages/Varify";
 import NavBar from "./Pages/NavBar";
 import HomePage from "./Pages/Home";
 import Error from "./Pages/Error";
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/varify" component={Varify} />
 
           <Route to="/error" component={Error} />
 

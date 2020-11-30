@@ -1,27 +1,33 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
+
 import "../Styles/login.css";
 
 const Login = () => {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setisLoggedIn] = useState("false");
 
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const userRegisterData = localStorage.getItem("userRegister");
-    const parseddata = JSON.parse(userRegisterData);
-    if (!userRegisterData) {
-      alert("REGISTER First ...");
-      history.push("/register");
-    } else if (parseddata.email === email && parseddata.password === password) {
-      setisLoggedIn(true);
+    try {
+      console.log("form submitted");
+      console.log("formData ", { email, password });
 
-      history.push("/calc");
-    } else {
-      alert("Invalid Credientials");
+      const { data } = await axios({
+        method: "Post",
+        url: "/user/signin",
+        data: { email, password },
+      });
+      console.log(data);
+      if (data !== "Invalid Credentials !!") {
+        localStorage.setItem("userDATA", data.token);
+        history.push("/thankyou");
+      }
+    } catch (err) {
+      console.log("Error in getting all data", err.message);
     }
   };
 

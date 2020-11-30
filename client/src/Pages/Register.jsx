@@ -6,29 +6,26 @@ import "../Styles/register_form.css";
 
 const Register = () => {
   const history = useHistory();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [firstname, setfirstname] = useState("");
+  const [lastname, setlastname] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     try {
       console.log("form submitted");
+      console.log("formData ", { firstname, lastname, email, password });
+
       const { data } = await axios({
-        method: "get",
-        url: "localhost:4000",
+        method: "Post",
+        url: "/user/signup",
+        data: { firstname, lastname, email, password },
       });
       console.log(data);
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-        })
-      );
+      localStorage.setItem("userID", data.userid);
 
-      history.push("/");
+      history.push("/varify");
     } catch (err) {
       console.log("Error in getting all data", err.message);
     }
@@ -44,23 +41,24 @@ const Register = () => {
         <form onSubmit={formSubmitHandler}>
           <div className="form-group">
             <input
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setfirstname(e.target.value)}
               type="text"
               className="form-control sameInputField"
-              value={name}
+              value={firstname}
               placeholder="First Name"
             />
 
             <input
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setlastname(e.target.value)}
               type="text"
+              value={lastname}
               className="form-control sameInputField"
               placeholder="Last Name"
             />
           </div>
           <div className="form-group">
             <input
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setemail(e.target.value)}
               type="email"
               className="form-control"
               value={email}
@@ -69,7 +67,7 @@ const Register = () => {
           </div>
           <div className="form-group">
             <input
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
               type="password"
               className="form-control"
               value={password}
