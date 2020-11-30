@@ -1,0 +1,150 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.nav_myways {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 70px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #0000000f;
+  opacity: 1;
+}
+
+.logo_myways {
+  position: absolute;
+  top: 4%;
+  left: 6%;
+  width: 4rem;
+  height: 4rem;
+  background: transparent url("../images/logo.png") 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.T_Logo {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.Links {
+  text-decoration: none;
+  font: normal normal normal 16px/22px Open Sans;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+
+.menu_bar_links {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  right: 6%;
+  justify-content: space-between;
+  list-style: none;
+  height: 100%;
+  width: 60%;
+  text-decoration: none;
+  float: left;
+  /* background: red; */
+}
+
+.menu_bar_links2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  list-style: none;
+  height: 100%;
+  width: 20%;
+  text-decoration: none;
+  /* background: rgb(102, 255, 0); */
+}
+
+.ulLInks {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.login_signup {
+  color: #7ecb20;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.login_signup:hover {
+  background: #7ecb20;
+  color: white;
+}
+
+.login_btn {
+  padding: 10px 25px;
+  background: #98d849;
+  color: white;
+}
+
+.login_btn:hover {
+  position: relative;
+  background: #7ecb20;
+  padding: 10px 25px;
+  color: white;
+  border-radius: 20px;
+}
+
+.menu_bar {
+  position: absolute;
+  top: 20%;
+  left: 10px;
+  width: 4rem;
+  height: 4rem;
+  display: none;
+  cursor: pointer;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+@media only screen and (max-width: 992px) {
+  .logo_myways {
+    left: 10%;
+  }
+
+  .menu_bar {
+    display: block;
+  }
+
+  .firstULTohide {
+    display: none;
+  }
+
+  .menu_bar_links2 {
+    position: absolute;
+    right: 8%;
+  }
+}
+
+.asidebar {
+  position: absolute;
+  background: rgb(245, 235, 235);
+  width: 30%;
+  height: 300px;
+  padding: 10px;
+  z-index: 4;
+}
+
+.asidebarMenu {
+  display: inline-block;
+  align-items: center;
+  text-align: left;
+  list-style: none;
+  line-height: 40px;
+}
