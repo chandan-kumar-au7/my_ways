@@ -1,0 +1,53 @@
+.register_form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  width: 60%;
+  height: 400px;
+  background: rgba(0, 0, 0, 0.103);
+  opacity: 1;
+  border-radius: 10px;
+  padding: 60px 0 0 0;
+}
+
+input {
+  width: 40%;
+  height: 35px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.712);
+}
+
+button {
+  width: 40%;
+  height: 35px;
+  margin: 10px;
+  background: #7ecb20;
+  border-radius: 5px;
+  border: #7ecb20;
+}
+
+.sameInputField {
+  width: 18.5%;
+}
+
+@media only screen and (max-width: 992px) {
+  .register_form {
+    width: 90%;
+    height: 400px;
+  }
+  input {
+    width: 70%;
+    height: 35px;
+    margin: 10px;
+  }
+  button {
+    width: 70%;
+    height: 35px;
+    margin: 10px;
+  }
+  .sameInputField {
+    width: 31.5%;
+  }
+}

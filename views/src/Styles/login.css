@@ -1,0 +1,56 @@
+/* body {
+  background: rgba(0, 0, 0, 0.171);
+} */
+.loginform {
+  position: absolute;
+  right: 0px;
+  width: 30%;
+  background: rgba(0, 0, 0, 0.103);
+
+  height: 600px;
+  padding: 10px;
+  z-index: 4;
+}
+
+.form_name {
+  outline: 2px solid rgba(0, 0, 0, 0.404);
+}
+
+.login_input {
+  width: 70%;
+}
+
+input {
+  width: 60%;
+}
+
+.paragraphforforgotpass {
+  color: #7ecb20;
+  text-align: right;
+  margin-right: 60px;
+}
+
+@media only screen and (max-width: 992px) {
+  .loginform {
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    background: rgba(0, 0, 0, 0.103);
+    height: 600px;
+    padding: 10px;
+    z-index: 4;
+  }
+
+  u {
+    font-size: 20px;
+  }
+  .login_input {
+    width: 90%;
+  }
+
+  .paragraphforforgotpass {
+    color: #7ecb20;
+    text-align: right;
+    margin-right: 10px;
+  }
+}

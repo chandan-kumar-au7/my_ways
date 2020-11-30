@@ -6,6 +6,7 @@
 
 .Get_started_btn {
   color: white;
+  cursor: pointer;
   background: #7ecb20;
   padding: 10px;
   margin-top: 30px;

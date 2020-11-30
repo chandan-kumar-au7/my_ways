@@ -27,31 +27,44 @@ const Login = () => {
 
   return (
     <div className="loginform">
-      <form onSubmit={formSubmitHandler}>
+      <br />
+      <h2 style={{ textAlign: "left" }}>Login</h2>
+      <br />
+
+      <form onSubmit={formSubmitHandler} className="form_name">
+        <br />
+        <u style={{ color: "#7ecb20", fontSize: "20px", margin: "20px" }}>
+          Student
+        </u>
+        <br />
+        <br />
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
           <input
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            className="form-control"
+            className="form-control login_input"
             value={email}
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            placeholder="Email"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
           <input
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            className="form-control"
+            className="form-control login_input"
             value={password}
-            id="exampleInputPassword1"
+            placeholder="Password"
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <br />
+        <p className="paragraphforforgotpass">Forgot Password ?</p>
+        <br />
+        <button type="submit" className="btn btn-primary login_input">
           Login
         </button>
+        <br />
+        <p>New to MyWays? Sign Up here</p>
+        <br />
       </form>
     </div>
   );
