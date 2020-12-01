@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("./views/build"));
+  app.use(express.static("./client/build"));
 } else {
   // IN DEVLOPMENT MODE ONLY
   app.use(morgan("dev"));
@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/user", userAuthRoute);
 
 app.get("/*", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "/views/build/index.html"));
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
   next();
 });
 
