@@ -2,7 +2,7 @@ import path from "path";
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import morgan from "morgan";
+// import morgan from "morgan";
 
 import "./Models";
 
@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client/build"));
 } else {
   // IN DEVLOPMENT MODE ONLY
-  app.use(morgan("dev"));
+  // app.use(morgan("dev"));
 }
 
 app.use("/user", userAuthRoute);
