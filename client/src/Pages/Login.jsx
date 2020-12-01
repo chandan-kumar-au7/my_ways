@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 import "../Styles/login.css";
 
@@ -24,6 +25,8 @@ const Login = () => {
       console.log(data);
       if (data !== "Invalid Credentials !!") {
         localStorage.setItem("userDATA", data.token);
+        const decoded = await jwt_decode(data.token);
+        localStorage.setItem("userID", decoded._id);
         history.push("/thankyou");
       }
     } catch (err) {
@@ -63,7 +66,9 @@ const Login = () => {
           />
         </div>
         <br />
-        <p className="paragraphforforgotpass">Forgot Password ?</p>
+        <Link to="/forgotpassword" className="paragraphforforgotpass">
+          Forgot Password ?
+        </Link>
         <br />
         <button type="submit" className="btn btn-primary login_input">
           Login

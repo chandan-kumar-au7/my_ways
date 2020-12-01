@@ -120,11 +120,9 @@ class UserAuthController {
   async forgotpassword(req, res, next) {
     try {
       UserModel.findByIdAndUpdate(
-        req.user._id,
+        req.body._id,
         { password: await bcrypt.hash(req.body.password, 8) },
         () => {
-          res.clearCookie("auth");
-          res.clearCookie("logedInAs");
           res.status(200).json({
             message: "Password Updated successfully",
           });

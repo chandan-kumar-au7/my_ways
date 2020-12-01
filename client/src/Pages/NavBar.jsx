@@ -14,9 +14,9 @@ function NavBar() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [DisplayMenu, setDisplayMenu] = useState(false);
   const [DisplayDropdown, setDisplayDropdown] = useState(false);
-  let [, setState] = useState();
 
   const history = useHistory();
+  const token = window.localStorage.getItem("userDATA");
 
   const HandleLogOut = () => {
     localStorage.removeItem("userDATA");
@@ -46,7 +46,6 @@ function NavBar() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("userDATA");
     if (token) {
       const decoded = jwt_decode(token);
       // Check for expired token
@@ -57,9 +56,8 @@ function NavBar() {
         history.push("/login");
       }
       setisLoggedIn(true);
-      setState({});
     }
-  }, [history]);
+  }, [history, token]);
 
   return (
     <>

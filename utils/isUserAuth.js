@@ -3,7 +3,8 @@ import { UserModel } from "../Models";
 
 const isUserAuth = async (req, res, next) => {
   try {
-    let token = req.cookies.auth;
+    const token = req.header("Authorization");
+    console.log(token);
     if (!token) {
       return res.status(200).send("please Authenticate");
     }
