@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { useHistory } from "react-router-dom";
 
 import Login from "./Pages/Login";
 import Forgotpass from "./Pages/Forgotpass";
@@ -15,10 +17,30 @@ import Thankyou from "./Pages/Thankyou";
 import "./App.css";
 
 function App() {
+  const history = useHistory();
+
+  const [isLoggedIn, setisLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("userDATA");
+
+    if (token) {
+      const decoded = jwt_decode(token);
+      setisLoggedIn(true);
+      // Check for expired token
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        setisLoggedIn(false);
+
+        history.push("/login");
+      }
+    }
+  }, [history]);
+
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar />
+        <NavBar isLoggedIn={isLoggedIn} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/home" component={HomePage} />

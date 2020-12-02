@@ -66,7 +66,7 @@ const Login = () => {
           />
         </div>
         <br />
-        <Link to="/forgotpassword" className="paragraphforforgotpass">
+        <Link to="/forgotpassword" id="forgotpass">
           Forgot Password ?
         </Link>
         <br />
