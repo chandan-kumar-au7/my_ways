@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Dropdown from "../Components/dropdown";
 
+import jwt_decode from "jwt-decode";
+
 import "../Styles/NavBar.css";
 
 import Logo from "../images/logo.png";
@@ -9,12 +11,14 @@ import T_Logo from "../images/Tlogo.png";
 
 import { Link } from "react-router-dom";
 
-function NavBar(props) {
+function NavBar() {
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [DisplayMenu, setDisplayMenu] = useState(false);
   const [DisplayDropdown, setDisplayDropdown] = useState(false);
 
   const history = useHistory();
+  const token = window.localStorage.getItem("userDATA");
+
   const HandleLogOut = () => {
     localStorage.removeItem("userDATA");
     localStorage.removeItem("userID");
@@ -43,10 +47,18 @@ function NavBar(props) {
   };
 
   useEffect(() => {
-    console.log("consoling PROPS ==== >>>>>> ", props);
+    if (token) {
+      const decoded = jwt_decode(token);
+      // Check for expired token
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        setisLoggedIn(false);
 
-    setisLoggedIn(props.isLoggedIn);
-  }, [props]);
+        history.push("/login");
+      }
+      setisLoggedIn(true);
+    }
+  }, [history, token]);
 
   return (
     <>
